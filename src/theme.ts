@@ -10,6 +10,7 @@ export const InterFamily = {
 }
 
 export const KalamFamily = {
+	fontFamilyLight: "Kalam-Light",
 	fontFamilyRegular: "Kalam-Regular",
 	fontFamilyBold: "Kalam-Bold",
 }

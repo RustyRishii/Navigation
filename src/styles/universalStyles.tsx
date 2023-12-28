@@ -14,6 +14,7 @@ const UniversalStyles = StyleSheet.create({
   },
   quoteText: {
     fontSize: 17,
+    color: "white",
   },
   authorText: {
     paddingVertical: 10,

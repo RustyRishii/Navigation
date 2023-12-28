@@ -15,7 +15,7 @@ import { StatusBar } from "expo-status-bar";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { KalamFamily, theme } from "../theme";
+import { InterFamily, KalamFamily } from "../theme";
 import { Inter_400Regular } from "@expo-google-fonts/inter";
 import {
   Callout,
@@ -90,22 +90,13 @@ const Home = () => {
         <View style={UniversalStyles.quoteBlock}>
           {apiData ? (
             <View>
-              <Title3
-                style={{ fontFamily: KalamFamily.fontFamilyKalam }}
-                text={apiData.text}
-              />
+              <Title3 text={apiData.text} />
               <View style={{ paddingVertical: 10, alignItems: "flex-end" }}>
                 <Headline text={apiData.author} />
               </View>
             </View>
           ) : null}
         </View>
-        <TitleLarge text="Navigation" />
-        <Text
-          style={{ fontFamily: KalamFamily.fontFamilyRegular, fontSize: 20 }}
-        >
-          Text
-        </Text>
       </ScrollView>
     </SafeAreaView>
   );
