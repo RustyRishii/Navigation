@@ -1,29 +1,26 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { theme } from "../theme";
+//import { theme } from "../theme";
 
 const UniversalStyles = StyleSheet.create({
   page: {
     padding: 10,
   },
   quoteBlock: {
-    height: "30%",
-    //padding: 10,
+    height: "20%",
     borderRadius: 10,
-    //borderWidth: 1,
     borderColor: "black",
     width: "100%",
-    //justifyContent: "center",
   },
   quoteText: {
-    fontFamily: theme.fontFamilyRegular,
-    fontSize: 20,
+    fontSize: 17,
   },
   authorText: {
     paddingVertical: 10,
     //paddingTop: 10,
     fontSize: 20,
     textAlign: "right",
+    //fontFamily: theme.fontFamilyInter,
   },
 });
 

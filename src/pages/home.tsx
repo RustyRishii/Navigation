@@ -15,6 +15,20 @@ import { StatusBar } from "expo-status-bar";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { KalamFamily, theme } from "../theme";
+import { Inter_400Regular } from "@expo-google-fonts/inter";
+import {
+  Callout,
+  Headline,
+  NormalText,
+  SubheadlineBold,
+  SubheadlineSemiBold,
+  Title1,
+  Title1Bold,
+  Title3,
+  TitleLarge,
+  TitleLargeBold,
+} from "../typography";
 
 const myIcon = <Icon name="home" size={20} color="green" />;
 
@@ -47,20 +61,20 @@ const Home = () => {
     getAPIData();
   }, []);
 
-  const [fontsLoaded] = useFonts({
-    "Kalam-Regular": require("../../assets/fonts/Kalam-Regular.ttf"),
-  });
+  // const [fontsLoaded] = useFonts({
+  //   "Kalam-Regular": require("../../assets/fonts/Kalam-Regular.ttf"),
+  // });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
-  
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
+
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <StatusBar backgroundColor="black" />
@@ -76,16 +90,21 @@ const Home = () => {
         <View style={UniversalStyles.quoteBlock}>
           {apiData ? (
             <View>
-              <Text style={UniversalStyles.quoteText}>{apiData.text}</Text>
-              <Text style={UniversalStyles.authorText}>- {apiData.author}</Text>
+              <Title3
+                style={{ fontFamily: KalamFamily.fontFamilyKalam }}
+                text={apiData.text}
+              />
+              <View style={{ paddingVertical: 10, alignItems: "flex-end" }}>
+                <Headline text={apiData.author} />
+              </View>
             </View>
           ) : null}
         </View>
-        <TouchableOpacity onPress={showToast}>
-          <Text>home</Text>
-        </TouchableOpacity>
-        <Text style={{ fontFamily: "Kalam-Regular", fontSize: 20 }}>
-          Font test
+        <TitleLarge text="Navigation" />
+        <Text
+          style={{ fontFamily: KalamFamily.fontFamilyRegular, fontSize: 20 }}
+        >
+          Text
         </Text>
       </ScrollView>
     </SafeAreaView>
