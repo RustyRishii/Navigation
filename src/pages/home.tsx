@@ -80,21 +80,22 @@ const HomePage = ({ navigation }) => {
 
   //const screenHeight = Dimensions.get("window").height;
   return (
-    <GestureHandlerRootView>
-      <SafeAreaView>
-        <StatusBar backgroundColor="black" />
+    <GestureHandlerRootView style={{ flex: 1, padding: 5 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <ScrollView
           style={{ flex: 1 }}
           scrollEnabled={true}
-          // nestedScrollEnabled={true}
-          contentContainerStyle={{
-            padding: 10,
-            flex: 1,
-          }}
+          contentContainerStyle={
+            {
+              // padding: 10,
+              // flex: 1,
+            }
+          }
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={getQuotes} />
           }
         >
+          <StatusBar backgroundColor="black" />
           <View style={UniversalStyles.quoteBlock}>
             {apiData ? (
               <View>
