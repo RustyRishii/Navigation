@@ -1,16 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import UniversalStyles from "../styles/universalStyles";
 
-const Community = () => {
+const Details = () => {
   return (
-    <SafeAreaView style={UniversalStyles.page}>
-      <Text>Community</Text>
+    <SafeAreaView>
+      <View>
+        <Text>Details</Text>
+      </View>
     </SafeAreaView>
   );
 };
 
-export default Community;
+export default Details;
 
 const styles = StyleSheet.create({});

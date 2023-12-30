@@ -1,22 +1,51 @@
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import Home from "./src/pages/home";
+import HomePage from "./src/pages/home";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Quotes from "./src/pages/quotes";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Community from "./src/pages/community";
+import Notifications from "./src/pages/notifications";
 import Profile from "./src/pages/profile";
 import Icon from "react-native-vector-icons/Ionicons";
+import Settings from "./src/pages/settings";
+import Details from "./src/pages/details";
+import Features from "./src/pages/features";
+import Privacy from "./src/pages/privacy";
+import Tweet from "./src/pages/tweet";
 
 const myIcon = <Icon name="home" size={20} color="green" />;
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+function QuoteStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Tweet" component={Tweet} />
+    </Stack.Navigator>
+  );
+}
+
+function HomeStack() {
+  return (
+    <Stack.Navigator initialRouteName="HomePage">
+      <Stack.Screen
+        options={{ headerShown: false, animation: "slide_from_right" }}
+        name="HomePage"
+        component={HomePage}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Privacy"
+        component={Privacy}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function BottomTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      // initialRouteName="Home"
       screenOptions={{
         tabBarLabelStyle: {
           fontSize: 13,
@@ -34,16 +63,7 @@ function BottomTabs() {
           ),
         }}
         name="Home"
-        component={Home}
-      />
-      <Tab.Screen
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="person" color="black" size={20} />
-          ),
-        }}
-        name="Quotes"
-        component={Quotes}
+        component={HomeStack}
       />
       <Tab.Screen
         options={{
@@ -51,8 +71,17 @@ function BottomTabs() {
             <Icon name="notifications" color="black" size={20} />
           ),
         }}
-        name="Community"
-        component={Community}
+        name="Notifications"
+        component={Notifications}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="person" color="black" size={20} />
+          ),
+        }}
+        name="Profile"
+        component={Profile}
       />
       <Tab.Screen
         options={{
@@ -60,8 +89,8 @@ function BottomTabs() {
             <Icon name="settings" color="black" size={20} />
           ),
         }}
-        name="Profile"
-        component={Profile}
+        name="Settings"
+        component={Settings}
       />
     </Tab.Navigator>
   );

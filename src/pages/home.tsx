@@ -20,15 +20,18 @@ import { Inter_400Regular } from "@expo-google-fonts/inter";
 import {
   Callout,
   Headline,
-  NormalText,
   SubheadlineBold,
   SubheadlineSemiBold,
   Title1,
   Title1Bold,
+  Title2,
   Title3,
   TitleLarge,
   TitleLargeBold,
 } from "../typography";
+import { NavigationContainer } from "@react-navigation/native";
+import Tweet from "./tweet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const myIcon = <Icon name="home" size={20} color="green" />;
 
@@ -36,7 +39,7 @@ const showToast = () => {
   return ToastAndroid.show("Clicked", ToastAndroid.SHORT);
 };
 
-const Home = () => {
+const HomePage = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [apiData, setAPIData] = useState(undefined);
 
@@ -75,33 +78,44 @@ const Home = () => {
   //   return null;
   // }
 
+  //const screenHeight = Dimensions.get("window").height;
   return (
-    <SafeAreaView style={{ height: "100%" }}>
-      <StatusBar backgroundColor="black" />
-      <ScrollView
-        contentContainerStyle={{
-          padding: 10,
-          height: "100%",
-        }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={getQuotes} />
-        }
-      >
-        <View style={UniversalStyles.quoteBlock}>
-          {apiData ? (
-            <View>
-              <Title3 text={apiData.text} />
-              <View style={{ paddingVertical: 10, alignItems: "flex-end" }}>
-                <Headline text={apiData.author} />
+    <GestureHandlerRootView>
+      <SafeAreaView>
+        <StatusBar backgroundColor="black" />
+        <ScrollView
+          style={{ flex: 1 }}
+          scrollEnabled={true}
+          // nestedScrollEnabled={true}
+          contentContainerStyle={{
+            padding: 10,
+            flex: 1,
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={getQuotes} />
+          }
+        >
+          <View style={UniversalStyles.quoteBlock}>
+            {apiData ? (
+              <View>
+                <Title3 text={apiData.text} />
+                <View style={{ paddingVertical: 10, alignItems: "flex-end" }}>
+                  <Title3 text={apiData.author} />
+                </View>
               </View>
-            </View>
-          ) : null}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            ) : null}
+          </View>
+          <Pressable onPress={() => navigation.navigate("Privacy")}>
+            <Text>Privacy</Text>
+          </Pressable>
+          <Icon name="home" color="green" size={500} />
+          <Icon name="home" color="green" size={500} />
+        </ScrollView>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 
-export default Home;
+export default HomePage;
 
 const styles = StyleSheet.create({});
