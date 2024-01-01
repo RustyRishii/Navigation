@@ -4,7 +4,7 @@ import React from "react";
 
 const UniversalStyles = StyleSheet.create({
   page: {
-    padding: 10,
+    padding: 5,
   },
   quoteBlock: {
     height: "20%",

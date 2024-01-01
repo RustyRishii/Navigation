@@ -4,11 +4,12 @@ import {
   View,
   ToastAndroid,
   TouchableOpacity,
+  Animated,
   ScrollView,
   RefreshControl,
   Pressable,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import UniversalStyles from "../styles/universalStyles";
 import { StatusBar } from "expo-status-bar";
@@ -32,6 +33,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import Tweet from "./tweet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import * as Haptics from "expo-haptics";
 
 const myIcon = <Icon name="home" size={20} color="green" />;
 
@@ -60,43 +62,153 @@ const HomePage = ({ navigation }) => {
     }, 200);
   }, []);
 
-  useEffect(() => {
-    getAPIData();
-  }, []);
+  // useEffect(() => {
+  //   getAPIData();
+  // }, []);
 
-  // const [fontsLoaded] = useFonts({
-  //   "Kalam-Regular": require("../../assets/fonts/Kalam-Regular.ttf"),
-  // });
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded]);
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      useNativeDriver: true,
+      delay: 0,
+      duration: 5000,
+    }).start();
+  };
 
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
+  const fadeOut = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      useNativeDriver: true,
+      delay: 0,
+      duration: 5000,
+    }).start();
+  };
 
-  //const screenHeight = Dimensions.get("window").height;
   return (
-    <GestureHandlerRootView style={{ flex: 1, padding: 5 }}>
+    <GestureHandlerRootView
+      style={{
+        flex: 1,
+        paddingHorizontal: 5,
+        backgroundColor: "cornflowerblue",
+      }}
+    >
+      <StatusBar backgroundColor="black" />
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView
+          showsVerticalScrollIndicator={false}
           style={{ flex: 1 }}
-          scrollEnabled={true}
-          contentContainerStyle={
-            {
-              // padding: 10,
-              // flex: 1,
-            }
-          }
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={getQuotes} />
           }
         >
-          <StatusBar backgroundColor="black" />
           <View style={UniversalStyles.quoteBlock}>
+            {apiData ? (
+              <View>
+                <Title3 text={apiData.text} />
+                <View style={{ paddingVertical: 10, alignItems: "flex-end" }}>
+                  <Title3 text={apiData.author} />
+                </View>
+              </View>
+            ) : null}
+          </View>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Privacy");
+              Haptics.notificationAsync(
+                Haptics.NotificationFeedbackType.Success
+              );
+            }}
+          >
+            <Text>Privacy</Text>
+          </Pressable>
+          <Animated.View style={{ opacity: fadeAnim }}>
+            <Text
+              style={{
+                fontSize: 52,
+                borderRadius: 10,
+                borderWidth: 1,
+                padding: 10,
+                color: "white",
+                alignContent: "center",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              Animation
+            </Text>
+          </Animated.View>
+          <View
+            style={{ justifyContent: "space-between", flexDirection: "row" }}
+          >
+            <Pressable
+              onPress={() => {
+                fadeIn();
+                console.log("FadeIn");
+              }}
+            >
+              <Text>FadeIn</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                fadeOut();
+                console.log("FadeOut");
+              }}
+            >
+              <Text>FadeOut</Text>
+            </Pressable>
+          </View>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+        </ScrollView>
+      </SafeAreaView>
+    </GestureHandlerRootView>
+  );
+};
+
+export default HomePage;
+
+const styles = StyleSheet.create({});
+
+{
+  /* <ScrollView
+          style={{ flex: 1 }}
+          scrollEnabled={true}
+          contentContainerStyle={{
+            // padding: 10,
+            flex: 1,
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={getQuotes} />
+          }
+        >
+          <View style={UniversalStyles.quoteBlock}>
+            {apiData ? (
+              <View>
+                <Title3 text={apiData.text} />
+                <View style={{ paddingVertical: 10, alignItems: "flex-end" }}>
+                  <Title3 text={apiData.author} />
+                </View>
+              </View>
+            ) : null}
+          </View><View style={UniversalStyles.quoteBlock}>
             {apiData ? (
               <View>
                 <Title3 text={apiData.text} />
@@ -109,14 +221,6 @@ const HomePage = ({ navigation }) => {
           <Pressable onPress={() => navigation.navigate("Privacy")}>
             <Text>Privacy</Text>
           </Pressable>
-          <Icon name="home" color="green" size={500} />
-          <Icon name="home" color="green" size={500} />
-        </ScrollView>
-      </SafeAreaView>
-    </GestureHandlerRootView>
-  );
-};
-
-export default HomePage;
-
-const styles = StyleSheet.create({});
+          
+        </ScrollView> */
+}

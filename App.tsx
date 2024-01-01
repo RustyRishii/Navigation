@@ -1,16 +1,15 @@
-import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import HomePage from "./src/pages/home";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Notifications from "./src/pages/notifications";
-import Profile from "./src/pages/profile";
+import { NavigationContainer } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
+import Notifications from "./src/pages/notifications";
 import Settings from "./src/pages/settings";
-import Details from "./src/pages/details";
-import Features from "./src/pages/features";
 import Privacy from "./src/pages/privacy";
+import { StyleSheet } from "react-native";
+import Profile from "./src/pages/profile";
+import HomePage from "./src/pages/home";
 import Tweet from "./src/pages/tweet";
+import { BlurView } from "expo-blur";
 
 const myIcon = <Icon name="home" size={20} color="green" />;
 
@@ -29,12 +28,17 @@ function HomeStack() {
   return (
     <Stack.Navigator initialRouteName="HomePage">
       <Stack.Screen
-        options={{ headerShown: false, animation: "slide_from_right" }}
+        options={{
+          headerShown: false,
+        }}
         name="HomePage"
         component={HomePage}
       />
       <Stack.Screen
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          animation: "slide_from_right",
+        }}
         name="Privacy"
         component={Privacy}
       />
@@ -48,6 +52,7 @@ function BottomTabs() {
       // initialRouteName="Home"
       screenOptions={{
         tabBarLabelStyle: {
+          position: "relative",
           fontSize: 13,
         },
         tabBarActiveTintColor: "red",
