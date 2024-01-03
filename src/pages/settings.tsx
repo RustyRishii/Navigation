@@ -18,11 +18,11 @@ const Settings = () => {
       useNativeDriver: true,
       duration: 5000,
     }).start();
-    Animated.timing(progress, {
-      toValue: 1,
-      useNativeDriver: true,
-      duration: 5000,
-    }).start();
+    // Animated.timing(progress, {
+    //   toValue: 1,
+    //   useNativeDriver: true,
+    //   duration: 5000,
+    // }).start();
   }, []);
 
   return (
