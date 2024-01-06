@@ -6,6 +6,17 @@ const UniversalStyles = StyleSheet.create({
   page: {
     padding: 5,
   },
+  AnimationText: {
+    fontSize: 52,
+    borderRadius: 10,
+    borderWidth: 1,
+    padding: 10,
+    color: "white",
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+  },
   quoteBlock: {
     height: "20%",
     borderRadius: 10,

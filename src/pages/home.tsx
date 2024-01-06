@@ -33,13 +33,8 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import Tweet from "./tweet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import * as Haptics from "expo-haptics";
 
-const myIcon = <Icon name="home" size={20} color="green" />;
-
-const showToast = () => {
-  return ToastAndroid.show("Clicked", ToastAndroid.SHORT);
-};
+//const myIcon = <Icon name="home" size={20} color="green" />;
 
 const HomePage = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -69,6 +64,7 @@ const HomePage = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
+    ToastAndroid.show("Fading In", ToastAndroid.SHORT);
     Animated.timing(fadeAnim, {
       toValue: 1,
       useNativeDriver: true,
@@ -78,6 +74,7 @@ const HomePage = ({ navigation }) => {
   };
 
   const fadeOut = () => {
+    ToastAndroid.show("Fading Out", ToastAndroid.SHORT);
     Animated.timing(fadeAnim, {
       toValue: 0,
       useNativeDriver: true,
@@ -116,29 +113,12 @@ const HomePage = ({ navigation }) => {
           <Pressable
             onPress={() => {
               navigation.navigate("Privacy");
-              Haptics.notificationAsync(
-                Haptics.NotificationFeedbackType.Success
-              );
             }}
           >
             <Text>Privacy</Text>
           </Pressable>
           <Animated.View style={{ opacity: fadeAnim }}>
-            <Text
-              style={{
-                fontSize: 52,
-                borderRadius: 10,
-                borderWidth: 1,
-                padding: 10,
-                color: "white",
-                alignContent: "center",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-              }}
-            >
-              Animation
-            </Text>
+            <Text style={UniversalStyles.AnimationText}>Animation</Text>
           </Animated.View>
           <View
             style={{ justifyContent: "space-between", flexDirection: "row" }}
