@@ -140,6 +140,20 @@ const HomePage = ({ navigation }) => {
               <Text>FadeOut</Text>
             </Pressable>
           </View>
+          <Pressable
+            style={{
+              padding: 10,
+              //flex: 1,
+              borderRadius: 10,
+              borderWidth: 1,
+              //justifyContent: "center",
+              //alignItems: "center",
+              backgroundColor: "cornflowerblue",
+            }}
+            onPress={() => console.log("ahahah")}
+          >
+            <Text style={{ fontSize: 20 }}>Width Plus</Text>
+          </Pressable>
           <Text style={{ fontSize: 50 }}>This is a text</Text>
           <Text style={{ fontSize: 50 }}>This is a text</Text>
           <Text style={{ fontSize: 50 }}>This is a text</Text>

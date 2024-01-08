@@ -34,6 +34,16 @@ const UniversalStyles = StyleSheet.create({
     textAlign: "right",
     //fontFamily: theme.fontFamilyInter,
   },
+  AnimationButtons: {
+    padding: 5,
+    margin: 5,
+    flex: 1,
+    borderRadius: 10,
+    borderWidth: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "cornflowerblue",
+  },
 });
 
 export default UniversalStyles;
