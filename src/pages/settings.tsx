@@ -173,42 +173,88 @@ const Settings = () => {
   const translateX = useSharedValue(0);
   const borderRadius = useSharedValue(0);
 
+  const universalDuration = 100;
+
+  const widthPlus = () => {
+    width.value = withTiming(width.value + 50, {
+      duration: universalDuration,
+      easing: Easing.quad,
+    });
+    if (width.value === 400) {
+      width.value = 400;
+      ToastAndroid.show("Width can't be more than 400", ToastAndroid.SHORT);
+    }
+  };
+
+  const widthMinus = () => {
+    width.value = withTiming(width.value - 50, {
+      duration: universalDuration,
+      easing: Easing.quad,
+    });
+    if (width.value === 100) {
+      width.value = 100;
+      ToastAndroid.show("width can't be less than 100", ToastAndroid.SHORT);
+    }
+    //width.value = width.value - 50;
+  };
+
+  const Reset = () => {
+    if (width.value == 100) {
+      ToastAndroid.show("Width is already 100", ToastAndroid.SHORT);
+    } else {
+      width.value = withTiming(100, {
+        duration: universalDuration,
+        easing: Easing.quad,
+      });
+      ToastAndroid.show("Width Reset to 100", ToastAndroid.CENTER);
+    }
+  };
+
   const handleTranslateX = () => {
-    translateX.value = withSpring(translateX.value + 50);
-    console.log("Move right");
+    translateX.value = withSpring(translateX.value + 25);
+    //console.log("Move right");
   };
 
   const handleTranslateY = () => {
-    translateX.value = withSpring(translateX.value - 50);
-    console.log("Move Left");
+    translateX.value = withSpring(translateX.value - 25);
+    //console.log("Move Left");
   };
 
   const handleTranslateReset = () => {
     //translateX.value = withSpring((translateX.value = 0));
     translateX.value = withTiming(0, {
-      duration: 1000,
+      duration: universalDuration,
       easing: Easing.quad,
     });
-    console.log("Move right");
+    //console.log("Move right");
   };
 
   const borderRadiusPlus = () => {
+    //borderRadius.value >= 0;
     borderRadius.value = withTiming(borderRadius.value + 5, {
-      duration: 100,
+      duration: universalDuration,
       easing: Easing.quad,
     });
+    if (borderRadius.value === 50) {
+      borderRadius.value = 50;
+      ToastAndroid.show("Can't be more than 50", ToastAndroid.SHORT);
+    }
   };
 
   const borderRadiusMinus = () => {
     borderRadius.value = withTiming(borderRadius.value - 5, {
-      duration: 100,
+      duration: universalDuration,
       easing: Easing.quad,
     });
+    if (borderRadius.value === 0) {
+      borderRadius.value = 0;
+      ToastAndroid.show("Can't be less than 0", ToastAndroid.SHORT);
+    }
   };
 
   const borderRadiusReset = () => {
     borderRadius.value = withTiming(0, {
-      duration: 100,
+      duration: universalDuration,
       easing: Easing.quad,
     });
   };
@@ -224,45 +270,15 @@ const Settings = () => {
   const refreshFunction = useCallback(() => {
     RandomColorFunc();
     setRefreshing(true);
-    width.value = 100;
+    //width.value = 100;
+    Reset();
+    handleTranslateReset();
+    borderRadiusReset();
     setTimeout(() => {
       setRefreshing(false);
     }, 200);
   }, []);
 
-  const widthPlus = () => {
-    if (width.value >= 100) {
-      width.value = withTiming(width.value + 50, {
-        duration: 800,
-        easing: Easing.quad,
-      });
-    } else if (width.value >= 400) {
-      width.value = width.value + 0;
-      ToastAndroid.show("Cant be more than 350", ToastAndroid.SHORT);
-    }
-  };
-
-  const widthMinus = () => {
-    if (width.value > 100) {
-      width.value = withTiming(width.value - 50, {
-        duration: 1000,
-        easing: Easing.quad,
-      });
-    } else {
-      width.value = width.value - 0;
-      //width.value = 50;
-      ToastAndroid.show("Width can't be less than 100", ToastAndroid.SHORT);
-    }
-    //width.value = width.value - 50;
-  };
-
-  const Reset = () => {
-    width.value = withTiming(100, {
-      duration: 1000,
-      easing: Easing.quad,
-    });
-    ToastAndroid.show("Width is Reset to 100", ToastAndroid.CENTER);
-  };
   return (
     <SafeAreaView style={UniversalStyles.page}>
       <GestureHandlerRootView>
@@ -282,7 +298,7 @@ const Settings = () => {
           }
         >
           <View style={{ flex: 1, alignItems: "center" }}>
-            <Text>Refresh to Change the color</Text>
+            <Text>Refresh to Reset and Change color</Text>
             <Animated.View
               style={[
                 {
@@ -355,6 +371,7 @@ const Settings = () => {
               <Text style={{ fontSize: 25 }}>➖5️⃣</Text>
             </Pressable>
           </View>
+          <View style={{ backgroundColor: "green", width: 200, height: 100 }} />
         </ScrollView>
       </GestureHandlerRootView>
     </SafeAreaView>
