@@ -33,6 +33,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import Tweet from "./tweet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Clipboard from "@react-native-clipboard/clipboard";
 
 //const myIcon = <Icon name="home" size={20} color="green" />;
 
@@ -57,9 +58,9 @@ const HomePage = ({ navigation }) => {
     }, 200);
   }, []);
 
-  // useEffect(() => {
-  //   getAPIData();
-  // }, []);
+  useEffect(() => {
+    getAPIData();
+  }, []);
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -83,24 +84,34 @@ const HomePage = ({ navigation }) => {
     }).start();
   };
 
+  const copyToClipboard = () => {
+    Clipboard.setString(`${apiData.text} - ${apiData.author}`);
+    ToastAndroid.show("Copied", ToastAndroid.SHORT);
+  };
+
   return (
-    <GestureHandlerRootView
-      style={{
-        flex: 1,
-        paddingHorizontal: 5,
-        backgroundColor: "cornflowerblue",
-      }}
-    >
-      <StatusBar backgroundColor="black" />
-      <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ paddingHorizontal: 5 }}>
+      <GestureHandlerRootView>
+        <StatusBar backgroundColor="black" />
         <ScrollView
+          style={{ height: "100%" }}
           showsVerticalScrollIndicator={false}
-          style={{ flex: 1 }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={getQuotes} />
           }
         >
-          <View style={UniversalStyles.quoteBlock}>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              alignContent: "center",
+              borderRadius: 10,
+              borderWidth: 1,
+              marginVertical: 10,
+              height: "20%",
+              paddingHorizontal: 5,
+            }}
+          >
             {apiData ? (
               <View>
                 <Title3 text={apiData.text} />
@@ -110,6 +121,12 @@ const HomePage = ({ navigation }) => {
               </View>
             ) : null}
           </View>
+          <Pressable
+            style={{ height: 50, width: 50 }}
+            onPress={copyToClipboard}
+          >
+            <Text>Copy</Text>
+          </Pressable>
           <Pressable
             onPress={() => {
               navigation.navigate("Privacy");
@@ -140,40 +157,20 @@ const HomePage = ({ navigation }) => {
               <Text>FadeOut</Text>
             </Pressable>
           </View>
-          <Pressable
-            style={{
-              padding: 10,
-              //flex: 1,
-              borderRadius: 10,
-              borderWidth: 1,
-              //justifyContent: "center",
-              //alignItems: "center",
-              backgroundColor: "cornflowerblue",
-            }}
-            onPress={() => console.log("ahahah")}
-          >
-            <Text style={{ fontSize: 20 }}>Width Plus</Text>
-          </Pressable>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
-          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
+          <Text style={{ fontSize: 50 }}>Text</Text>
         </ScrollView>
-      </SafeAreaView>
-    </GestureHandlerRootView>
+      </GestureHandlerRootView>
+    </SafeAreaView>
   );
 };
 
@@ -186,7 +183,7 @@ const styles = StyleSheet.create({});
           style={{ flex: 1 }}
           scrollEnabled={true}
           contentContainerStyle={{
-            // padding: 10,
+         padding: 10,
             flex: 1,
           }}
           refreshControl={

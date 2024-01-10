@@ -228,7 +228,7 @@ const Settings = () => {
     });
     //console.log("Move right");
   };
-
+  
   const borderRadiusPlus = () => {
     //borderRadius.value >= 0;
     borderRadius.value = withTiming(borderRadius.value + 5, {
@@ -237,7 +237,10 @@ const Settings = () => {
     });
     if (borderRadius.value === 50) {
       borderRadius.value = 50;
-      ToastAndroid.show("Can't be more than 50", ToastAndroid.SHORT);
+      ToastAndroid.show(
+        "Border Radius can't be more than 50",
+        ToastAndroid.SHORT
+      );
     }
   };
 
@@ -248,7 +251,10 @@ const Settings = () => {
     });
     if (borderRadius.value === 0) {
       borderRadius.value = 0;
-      ToastAndroid.show("Can't be less than 0", ToastAndroid.SHORT);
+      ToastAndroid.show(
+        "Border Radius can't be less than 0",
+        ToastAndroid.SHORT
+      );
     }
   };
 
@@ -270,7 +276,6 @@ const Settings = () => {
   const refreshFunction = useCallback(() => {
     RandomColorFunc();
     setRefreshing(true);
-    //width.value = 100;
     Reset();
     handleTranslateReset();
     borderRadiusReset();
@@ -371,7 +376,6 @@ const Settings = () => {
               <Text style={{ fontSize: 25 }}>➖5️⃣</Text>
             </Pressable>
           </View>
-          <View style={{ backgroundColor: "green", width: 200, height: 100 }} />
         </ScrollView>
       </GestureHandlerRootView>
     </SafeAreaView>

@@ -18,10 +18,14 @@ const UniversalStyles = StyleSheet.create({
     textAlign: "center",
   },
   quoteBlock: {
-    height: "20%",
+    //margin: 10,
+    marginVertical: 10,
+    borderWidth: 1,
+    paddingHorizontal: 5,
+    justifyContent: "center",
+    height: "75%",
     borderRadius: 10,
     borderColor: "black",
-    width: "100%",
   },
   quoteText: {
     fontSize: 17,
