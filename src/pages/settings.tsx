@@ -15,6 +15,8 @@ import {
 } from "react-native-gesture-handler";
 import Animated, { Easing, withTiming } from "react-native-reanimated";
 import { withSpring, useSharedValue } from "react-native-reanimated";
+//import { SliderComponent } from "@react-native-community/slider";
+import Slider from "@react-native-community/slider";
 
 const Settings = () => {
   const colors = [
@@ -168,12 +170,25 @@ const Settings = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [randomColor, setRandomColor] = useState("");
   const [colorName, setColorName] = useState("");
+  //const [borderRadiusNumber, setBorderRadiusNumber] = useState(0);
 
   const width = useSharedValue(100);
   const translateX = useSharedValue(0);
   const borderRadius = useSharedValue(0);
+  var sliderValue = 0;
 
   const universalDuration = 100;
+
+  const borderRadiusChangeSlider = (value: any) => {
+    borderRadius.value = withTiming(value, {
+      duration: universalDuration,
+      easing: Easing.quad,
+    });
+  };
+
+  const onSliderValueChange = (value: any) => {
+    borderRadiusChangeSlider(value);
+  };
 
   const widthPlus = () => {
     width.value = withTiming(width.value + 50, {
@@ -228,7 +243,7 @@ const Settings = () => {
     });
     //console.log("Move right");
   };
-  
+
   const borderRadiusPlus = () => {
     //borderRadius.value >= 0;
     borderRadius.value = withTiming(borderRadius.value + 5, {
@@ -279,6 +294,7 @@ const Settings = () => {
     Reset();
     handleTranslateReset();
     borderRadiusReset();
+    sliderValue = 0;
     setTimeout(() => {
       setRefreshing(false);
     }, 200);
@@ -304,6 +320,7 @@ const Settings = () => {
         >
           <View style={{ flex: 1, alignItems: "center" }}>
             <Text>Refresh to Reset and Change color</Text>
+            <Text style={{ fontSize: 20 }}>{colorName}</Text>
             <Animated.View
               style={[
                 {
@@ -318,7 +335,6 @@ const Settings = () => {
                 },
               ]}
             />
-            <Text style={{ fontSize: 20 }}>{colorName}</Text>
           </View>
           <Text>Change width</Text>
           <View style={{ flexDirection: "row" }}>
@@ -375,6 +391,24 @@ const Settings = () => {
             >
               <Text style={{ fontSize: 25 }}>➖5️⃣</Text>
             </Pressable>
+          </View>
+          <View>
+            <Text>Slider</Text>
+            <Text>{}</Text>
+            <Slider
+              value={0}
+              onValueChange={onSliderValueChange}
+              style={{ width: 400, height: 40 }}
+              minimumValue={0}
+              maximumValue={50}
+              minimumTrackTintColor="cornflowerblue"
+              maximumTrackTintColor="black"
+              thumbTintColor="crimson"
+              upperLimit={50}
+              lowerLimit={0}
+              step={5}
+              tapToSeek={true}
+            />
           </View>
         </ScrollView>
       </GestureHandlerRootView>

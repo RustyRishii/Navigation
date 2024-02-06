@@ -11,7 +11,7 @@ const UniversalStyles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     padding: 10,
-    color: "white",
+    color: "black",
     alignContent: "center",
     justifyContent: "center",
     alignItems: "center",

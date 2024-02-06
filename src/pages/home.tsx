@@ -13,7 +13,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import UniversalStyles from "../styles/universalStyles";
 import { StatusBar } from "expo-status-bar";
-import Icon from "react-native-vector-icons/Ionicons";
+//import Icon from "react-native-vector-icons/Ionicons";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { InterFamily, KalamFamily } from "../theme";
@@ -34,12 +34,31 @@ import { NavigationContainer } from "@react-navigation/native";
 import Tweet from "./tweet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Clipboard from "@react-native-clipboard/clipboard";
+import Icon from "react-native-vector-icons/Ionicons";
+import { useSharedValue } from "react-native-reanimated";
 
-//const myIcon = <Icon name="home" size={20} color="green" />;
+const copyIcon = <Icon name="copy" size={30} color="black" />;
+
+const bookmarkIconOutline = (
+  <Icon name="bookmark-outline" size={30} color="black" />
+);
+
+const bookmarkIconFilled = <Icon name="bookmark" size={30} color="black" />;
 
 const HomePage = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [apiData, setAPIData] = useState(undefined);
+  const [bookmark, setBookmark] = useState(bookmarkIconOutline);
+
+  function bookmarkCondition() {
+    if (bookmark === bookmarkIconOutline) {
+      setBookmark(bookmarkIconFilled);
+      ToastAndroid.show("Bookmarked", ToastAndroid.SHORT);
+    } else {
+      setBookmark(bookmarkIconOutline);
+      ToastAndroid.show("Bookmark removed", ToastAndroid.SHORT);
+    }
+  }
 
   const url = "https://stoic-quotes.com/api/quote";
 
@@ -53,6 +72,7 @@ const HomePage = ({ navigation }) => {
   const getQuotes = useCallback(() => {
     setRefreshing(true);
     getAPIData();
+    setBookmark(bookmarkIconOutline);
     setTimeout(() => {
       setRefreshing(false);
     }, 200);
@@ -109,24 +129,36 @@ const HomePage = ({ navigation }) => {
               borderWidth: 1,
               marginVertical: 10,
               height: "20%",
-              paddingHorizontal: 5,
+              paddingHorizontal: 10,
             }}
           >
             {apiData ? (
               <View>
                 <Title3 text={apiData.text} />
-                <View style={{ paddingVertical: 10, alignItems: "flex-end" }}>
+                <View style={{ paddingTop: 10, alignItems: "flex-end" }}>
                   <Title3 text={apiData.author} />
                 </View>
               </View>
             ) : null}
           </View>
-          <Pressable
-            style={{ height: 50, width: 50 }}
-            onPress={copyToClipboard}
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
-            <Text>Copy</Text>
-          </Pressable>
+            <Pressable
+              style={{ height: 50, width: 50 }}
+              onPress={copyToClipboard}
+            >
+              {copyIcon}
+            </Pressable>
+            <Pressable
+              style={{ height: 50, width: 50 }}
+              onPress={() => {
+                bookmarkCondition();
+              }}
+            >
+              {bookmark}
+            </Pressable>
+          </View>
           <Pressable
             onPress={() => {
               navigation.navigate("Privacy");
@@ -215,3 +247,6 @@ const styles = StyleSheet.create({});
           
         </ScrollView> */
 }
+/*
+
+*/
