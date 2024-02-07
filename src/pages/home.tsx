@@ -37,18 +37,40 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useSharedValue } from "react-native-reanimated";
 
-const copyIcon = <Icon name="copy" size={30} color="black" />;
+const copyIconFilled = <Icon name="copy" size={30} color="black" />;
+const copyIconOutline = <Icon name="copy-outline" size={30} color={"black"} />;
 
 const bookmarkIconOutline = (
   <Icon name="bookmark-outline" size={30} color="black" />
 );
-
 const bookmarkIconFilled = <Icon name="bookmark" size={30} color="black" />;
 
 const HomePage = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [apiData, setAPIData] = useState(undefined);
   const [bookmark, setBookmark] = useState(bookmarkIconOutline);
+  const [copy, setCopy] = useState(copyIconOutline);
+
+  // function copyCondition() {
+  //   if (copy === copyIconOutline) {
+  //     setCopy(copyIconFilled);
+  //     Clipboard.setString(`${apiData.text} - ${apiData.author}`);
+  //     ToastAndroid.show("Copied", ToastAndroid.SHORT);
+  //     setTimeout(() => {
+  //       setCopy(copyIconOutline);
+  //     }, 2000);
+  //   }
+  // }
+  function copyCondition() {
+    setCopy(copyIconFilled);
+    Clipboard.setString(`${apiData.text} - ${apiData.author}`);
+    ToastAndroid.show("Copied", ToastAndroid.SHORT);
+
+    // Set copyIconOutline back after 2 seconds
+    setTimeout(() => {
+      setCopy(copyIconOutline);
+    }, 1000);
+  }
 
   function bookmarkCondition() {
     if (bookmark === bookmarkIconOutline) {
@@ -146,9 +168,11 @@ const HomePage = ({ navigation }) => {
           >
             <Pressable
               style={{ height: 50, width: 50 }}
-              onPress={copyToClipboard}
+              onPress={() => {
+                copyCondition();
+              }}
             >
-              {copyIcon}
+              {copy}
             </Pressable>
             <Pressable
               style={{ height: 50, width: 50 }}
