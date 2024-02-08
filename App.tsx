@@ -6,12 +6,17 @@ import Notifications from "./src/pages/notifications";
 import Settings from "./src/pages/settings";
 import Privacy from "./src/pages/privacy";
 import { StyleSheet } from "react-native";
-import Profile from "./src/pages/profile";
+import Bookmarks from "./src/pages/bookmark";
 import HomePage from "./src/pages/home";
 import Tweet from "./src/pages/tweet";
 import { BlurView } from "expo-blur";
 
 const myIcon = <Icon name="home" size={20} color="green" />;
+
+const bookmarkIconOutline = (
+  <Icon name="bookmark-outline" size={30} color="black" />
+);
+const bookmarkIconFilled = <Icon name="bookmark" size={30} color="black" />;
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -63,8 +68,12 @@ function BottomTabs() {
     >
       <Tab.Screen
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color="black" size={20} />
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name={focused ? "home" : "home-outline"}
+              color="black"
+              size={20}
+            />
           ),
         }}
         name="Home"
@@ -72,8 +81,12 @@ function BottomTabs() {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="notifications" color="black" size={20} />
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name={focused ? "notifications" : "notifications-outline"}
+              color="black"
+              size={20}
+            />
           ),
         }}
         name="Notifications"
@@ -81,17 +94,25 @@ function BottomTabs() {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="person" color="black" size={20} />
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name={focused ? "bookmark" : "bookmark-outline"}
+              color="black"
+              size={20}
+            />
           ),
         }}
-        name="Profile"
-        component={Profile}
+        name="Bookmarks"
+        component={Bookmarks}
       />
       <Tab.Screen
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="settings" color="black" size={20} />
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name={focused ? "settings" : "settings-outline"}
+              color="black"
+              size={20}
+            />
           ),
         }}
         name="Settings"

@@ -51,6 +51,9 @@ const HomePage = ({ navigation }) => {
   const [bookmark, setBookmark] = useState(bookmarkIconOutline);
   const [copy, setCopy] = useState(copyIconOutline);
 
+  type apiCall = {
+    text: string;
+  };
   // function copyCondition() {
   //   if (copy === copyIconOutline) {
   //     setCopy(copyIconFilled);
@@ -63,7 +66,8 @@ const HomePage = ({ navigation }) => {
   // }
   function copyCondition() {
     setCopy(copyIconFilled);
-    Clipboard.setString(`${apiData.text} - ${apiData.author}`);
+    Clipboard.setString(`${apiData?.text} - ${apiData?.author}`);
+
     ToastAndroid.show("Copied", ToastAndroid.SHORT);
 
     // Set copyIconOutline back after 2 seconds

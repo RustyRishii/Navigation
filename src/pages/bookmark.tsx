@@ -3,14 +3,14 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import UniversalStyles from "../styles/universalStyles";
 
-const Profile = () => {
+const Bookmarks = () => {
   return (
     <SafeAreaView style={UniversalStyles.page}>
-      <Text>Profile</Text>
+      <Text>Bookmarks</Text>
     </SafeAreaView>
   );
 };
 
-export default Profile;
+export default Bookmarks;
 
 const styles = StyleSheet.create({});
