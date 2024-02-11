@@ -9,14 +9,6 @@ import { StyleSheet } from "react-native";
 import Bookmarks from "./src/pages/bookmark";
 import HomePage from "./src/pages/home";
 import Tweet from "./src/pages/tweet";
-import { BlurView } from "expo-blur";
-
-const myIcon = <Icon name="home" size={20} color="green" />;
-
-const bookmarkIconOutline = (
-  <Icon name="bookmark-outline" size={30} color="black" />
-);
-const bookmarkIconFilled = <Icon name="bookmark" size={30} color="black" />;
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -54,16 +46,15 @@ function HomeStack() {
 function BottomTabs() {
   return (
     <Tab.Navigator
-      // initialRouteName="Home"
       screenOptions={{
         tabBarLabelStyle: {
           position: "relative",
           fontSize: 13,
         },
-        tabBarActiveTintColor: "red",
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: "black",
         headerShown: false,
         tabBarActiveBackgroundColor: "white",
-        //tabBarInactiveBackgroundColor: "grey",
       }}
     >
       <Tab.Screen

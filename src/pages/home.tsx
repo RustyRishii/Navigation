@@ -1,23 +1,19 @@
 import {
+  TextInput,
   StyleSheet,
   Text,
   View,
   ToastAndroid,
-  TouchableOpacity,
   Animated,
   ScrollView,
   RefreshControl,
   Pressable,
+  Button,
 } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import UniversalStyles from "../styles/universalStyles";
 import { StatusBar } from "expo-status-bar";
-//import Icon from "react-native-vector-icons/Ionicons";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { InterFamily, KalamFamily } from "../theme";
-import { Inter_400Regular } from "@expo-google-fonts/inter";
 import {
   Callout,
   Headline,
@@ -35,7 +31,8 @@ import Tweet from "./tweet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Clipboard from "@react-native-clipboard/clipboard";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useSharedValue } from "react-native-reanimated";
+import { AsyncStorageHook } from "@react-native-async-storage/async-storage/lib/typescript/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const copyIconFilled = <Icon name="copy" size={30} color="black" />;
 const copyIconOutline = <Icon name="copy-outline" size={30} color={"black"} />;
@@ -111,7 +108,6 @@ const HomePage = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
-    ToastAndroid.show("Fading In", ToastAndroid.SHORT);
     Animated.timing(fadeAnim, {
       toValue: 1,
       useNativeDriver: true,
@@ -121,7 +117,6 @@ const HomePage = ({ navigation }) => {
   };
 
   const fadeOut = () => {
-    ToastAndroid.show("Fading Out", ToastAndroid.SHORT);
     Animated.timing(fadeAnim, {
       toValue: 0,
       useNativeDriver: true,
@@ -130,10 +125,20 @@ const HomePage = ({ navigation }) => {
     }).start();
   };
 
-  const copyToClipboard = () => {
-    Clipboard.setString(`${apiData.text} - ${apiData.author}`);
-    ToastAndroid.show("Copied", ToastAndroid.SHORT);
+  const [quoteAndAuthor, setQuotes] = useState("");
+
+  const setData = async () => {
+    await AsyncStorage.setItem("quoteAndAuthor", apiData?.text);
   };
+
+  const getData = async () => {
+    const storedQuote = await AsyncStorage.getItem("quoteAndAuthor");
+    setQuotes(storedQuote);
+  };
+
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <SafeAreaView style={{ paddingHorizontal: 5 }}>
@@ -154,7 +159,7 @@ const HomePage = ({ navigation }) => {
               borderRadius: 10,
               borderWidth: 1,
               marginVertical: 10,
-              height: "20%",
+              height: 215,
               paddingHorizontal: 10,
             }}
           >
@@ -182,6 +187,7 @@ const HomePage = ({ navigation }) => {
               style={{ height: 50, width: 50 }}
               onPress={() => {
                 bookmarkCondition();
+                setData();
               }}
             >
               {bookmark}
@@ -217,17 +223,8 @@ const HomePage = ({ navigation }) => {
               <Text>FadeOut</Text>
             </Pressable>
           </View>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
-          <Text style={{ fontSize: 50 }}>Text</Text>
+          {/* <Button title="get quotes" onPress={getData} /> */}
+          <Text>{quoteAndAuthor}</Text>
         </ScrollView>
       </GestureHandlerRootView>
     </SafeAreaView>
@@ -275,6 +272,3 @@ const styles = StyleSheet.create({});
           
         </ScrollView> */
 }
-/*
-
-*/

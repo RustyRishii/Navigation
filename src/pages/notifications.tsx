@@ -9,7 +9,7 @@ import {
 
 const Notifications = () => {
   return (
-    <GestureHandlerRootView style={{ flex: 1, padding: 5 }}>
+    <GestureHandlerRootView style={{ flex: 1, paddingHorizontal: 5 }}>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           <Text style={{ fontSize: 50 }}>This is a text</Text>

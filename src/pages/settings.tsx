@@ -344,7 +344,7 @@ const Settings = () => {
             >
               <Text style={{ fontSize: 25 }}>➕</Text>
             </Pressable>
-            <Pressable
+            {/* <Pressable
               style={UniversalStyles.AnimationButtons}
               onPress={() => {
                 Reset();
@@ -353,7 +353,7 @@ const Settings = () => {
               }}
             >
               <Text style={{ fontSize: 25 }}>🔄</Text>
-            </Pressable>
+            </Pressable> */}
             <Pressable
               style={UniversalStyles.AnimationButtons}
               onPress={widthMinus}
@@ -377,24 +377,8 @@ const Settings = () => {
               <Text style={{ fontSize: 25 }}>▶</Text>
             </Pressable>
           </View>
-          <Text>Border Radius</Text>
-          <View style={{ flexDirection: "row" }}>
-            <Pressable
-              style={UniversalStyles.AnimationButtons}
-              onPress={borderRadiusPlus}
-            >
-              <Text style={{ fontSize: 25 }}>➕5️⃣</Text>
-            </Pressable>
-            <Pressable
-              style={UniversalStyles.AnimationButtons}
-              onPress={borderRadiusMinus}
-            >
-              <Text style={{ fontSize: 25 }}>➖5️⃣</Text>
-            </Pressable>
-          </View>
-          <View>
+          <View style={{ paddingTop: 10 }}>
             <Text>Slider</Text>
-            <Text>{}</Text>
             <Slider
               value={0}
               onValueChange={onSliderValueChange}
