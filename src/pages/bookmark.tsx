@@ -16,6 +16,7 @@ import {
   TouchableHighlight,
 } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import HomePage from "./home";
 
 const Bookmarks = () => {
   const [nickname, setNickname] = useState();

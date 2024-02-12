@@ -42,15 +42,16 @@ const bookmarkIconOutline = (
 );
 const bookmarkIconFilled = <Icon name="bookmark" size={30} color="black" />;
 
-const HomePage = ({ navigation }) => {
+const HomePage = ({ navigation }: { navigation: any }) => {
   const [refreshing, setRefreshing] = useState(false);
-  const [apiData, setAPIData] = useState(undefined);
+  const [apiData, setAPIData] = useState<
+    { text: string; author: string } | undefined
+  >(undefined);
+
+  //const [apiData, setAPIData] = useState(undefined);
   const [bookmark, setBookmark] = useState(bookmarkIconOutline);
   const [copy, setCopy] = useState(copyIconOutline);
 
-  type apiCall = {
-    text: string;
-  };
   // function copyCondition() {
   //   if (copy === copyIconOutline) {
   //     setCopy(copyIconFilled);
@@ -125,15 +126,15 @@ const HomePage = ({ navigation }) => {
     }).start();
   };
 
-  const [quoteAndAuthor, setQuotes] = useState("");
+  const [quoteAndAuthor, setQuotes] = useState<string>("");
 
   const setData = async () => {
-    await AsyncStorage.setItem("quoteAndAuthor", apiData?.text);
+    await AsyncStorage.setItem("quoteAndAuthor", apiData?.text ?? "");
   };
 
   const getData = async () => {
     const storedQuote = await AsyncStorage.getItem("quoteAndAuthor");
-    setQuotes(storedQuote);
+    setQuotes(storedQuote ?? "");
   };
 
   useEffect(() => {
