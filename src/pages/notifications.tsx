@@ -11,7 +11,17 @@ const Notifications = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1, paddingHorizontal: 5 }}>
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={{ flex: 1 }}
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled={true}
+          //snapToInterval={50}
+          snapToEnd={true}
+        >
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
+          <Text style={{ fontSize: 50 }}>This is a text</Text>
           <Text style={{ fontSize: 50 }}>This is a text</Text>
           <Text style={{ fontSize: 50 }}>This is a text</Text>
           <Text style={{ fontSize: 50 }}>This is a text</Text>

@@ -27,12 +27,12 @@ import {
   TitleLargeBold,
 } from "../typography";
 import { NavigationContainer } from "@react-navigation/native";
-import Tweet from "./tweet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Clipboard from "@react-native-clipboard/clipboard";
 import Icon from "react-native-vector-icons/Ionicons";
 import { AsyncStorageHook } from "@react-native-async-storage/async-storage/lib/typescript/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { tapGestureHandlerProps } from "react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler";
 
 const copyIconFilled = <Icon name="copy" size={30} color="black" />;
 const copyIconOutline = <Icon name="copy-outline" size={30} color={"black"} />;
@@ -146,24 +146,14 @@ const HomePage = ({ navigation }: { navigation: any }) => {
       <GestureHandlerRootView>
         <StatusBar backgroundColor="black" />
         <ScrollView
+          stickyHeaderHiddenOnScroll={false}
           style={{ height: "100%" }}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={getQuotes} />
           }
         >
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              alignContent: "center",
-              borderRadius: 10,
-              borderWidth: 1,
-              marginVertical: 10,
-              height: 215,
-              paddingHorizontal: 10,
-            }}
-          >
+          <View style={UniversalStyles.quoteBlock}>
             {apiData ? (
               <View>
                 <Title3 text={apiData.text} />
@@ -225,7 +215,20 @@ const HomePage = ({ navigation }: { navigation: any }) => {
             </Pressable>
           </View>
           {/* <Button title="get quotes" onPress={getData} /> */}
-          <Text>{quoteAndAuthor}</Text>
+          {/* <Text style={{ fontSize: 25 }}>{quoteAndAuthor}</Text> */}
+          <View style={{ paddingVertical: 30 }}></View>
+          <Title3 text={quoteAndAuthor} />
+          <View
+            focusable={false}
+            accessible={true}
+            accessibilityHint="This is a hint"
+            accessibilityLabel="This is a label"
+          >
+            <Text selectable={true} style={{ fontSize: 50 }}>
+              This is a text
+            </Text>
+            <Text>This is a text</Text>
+          </View>
         </ScrollView>
       </GestureHandlerRootView>
     </SafeAreaView>

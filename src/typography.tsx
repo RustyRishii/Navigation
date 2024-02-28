@@ -81,6 +81,7 @@ export const Title2Bold = ({ text }: TypographyProps) => {
 export const Title3 = ({ text }: TypographyProps) => {
   return (
     <ReactNativeText
+      selectable={true}
       style={{ fontFamily: InterFamily.fontFamilyRegular, fontSize: 20 }}
     >
       {text}

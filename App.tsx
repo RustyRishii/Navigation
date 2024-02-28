@@ -3,23 +3,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Notifications from "./src/pages/notifications";
-import Settings from "./src/pages/settings";
+import Profile from "./src/pages/Profile";
 import Privacy from "./src/pages/privacy";
 import { StyleSheet } from "react-native";
 import Bookmarks from "./src/pages/bookmark";
 import HomePage from "./src/pages/home";
-import Tweet from "./src/pages/tweet";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-function QuoteStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Tweet" component={Tweet} />
-    </Stack.Navigator>
-  );
-}
 
 function HomeStack() {
   return (
@@ -74,19 +65,6 @@ function BottomTabs() {
         options={{
           tabBarIcon: ({ focused }) => (
             <Icon
-              name={focused ? "notifications" : "notifications-outline"}
-              color="black"
-              size={20}
-            />
-          ),
-        }}
-        name="Notifications"
-        component={Notifications}
-      />
-      <Tab.Screen
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Icon
               name={focused ? "bookmark" : "bookmark-outline"}
               color="black"
               size={20}
@@ -100,14 +78,28 @@ function BottomTabs() {
         options={{
           tabBarIcon: ({ focused }) => (
             <Icon
-              name={focused ? "settings" : "settings-outline"}
+              name={focused ? "notifications" : "notifications-outline"}
               color="black"
               size={20}
             />
           ),
         }}
-        name="Settings"
-        component={Settings}
+        name="Notifications"
+        component={Notifications}
+      />
+
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name={focused ? "person" : "person-outline"}
+              color="black"
+              size={20}
+            />
+          ),
+        }}
+        name="Profile"
+        component={Profile}
       />
     </Tab.Navigator>
   );

@@ -7,16 +7,19 @@ import {
   Keyboard,
   TextInput,
   Button,
+  FlatList,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import UniversalStyles from "../styles/universalStyles";
 import {
   GestureHandlerRootView,
+  ScrollView,
   TouchableHighlight,
 } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomePage from "./home";
+import { Title3Bold, TitleLarge } from "../typography";
 
 const Bookmarks = () => {
   const [nickname, setNickname] = useState();
